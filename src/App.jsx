@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [input, setInput] = useState('');
+
+  // add usestates to save input and todos
+  const [input, setInput] = useState("");
+  const [todos, settodos] = useState([]);
 
   // When the component mounts, fetch todos from local storage
-  useEffect(() => {
-    const storedTodos = localStorage.getItem('todos');
-    console.log("Fetched from local storage:", storedTodos);
 
-    if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
-    }
-  }, []);
 
-  const addTodo = () => {
+  // addTodo Function
+  const addToDo = () => { //parenthesis is for the paramaters of the function
     if (input) {
-      const updatedTodos = [...todos, input];
-      setTodos(updatedTodos);
-      setInput('');
+      const newtodo = [...todos, input]; //takes the previous values of the array todos and adds the value from input to it and saves it in newtodo array
+      settodos(newtodo);
+      setInput("");
     }
-  };
+  }
 
+  // Remove Todo Function
   const removeTodo = (index) => {
-    const updatedTodos = [...todos];
-    updatedTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
+    const newtodo = [...todos];
+    newtodo.splice(index, 1);
+    settodos(newtodo);
+  }
 
+  //create a UI with
   return (
     <div className="App">
       <h1>Simple To-Do List</h1>
       <div className='todoadd'>
         <input
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}// e creates a function to execute
           placeholder="Enter a new task..."
         />
-        <button onClick={addTodo}>Add</button>
+        <button onClick={addToDo}>Add</button>
       </div>
       <ul>
         {todos.map((todo, index) => (
